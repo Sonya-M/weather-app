@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
-import CurrentWeather from "../components/CurrentWeather/CurrentWeather";
+import CurrentWeather from "../components/CurrentWeather";
+import Forecast from "../components/Forecast";
+import Loader from "../components/Loader";
 
 export default function Home() {
+  const [loading, setLoading] = useState(false);
   const [location, setLocation] = useState<{ lon: number; lat: number }>();
+
   const [city, setCity] = useState("");
 
   useEffect(() => {
+    setLoading(true);
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         console.log(position.coords.longitude);
@@ -30,20 +35,25 @@ export default function Home() {
     } else {
       console.log("Not Available");
     }
+    setLoading(false);
   }, []);
 
   console.log(location);
+
+  if (loading) {
+    return <Loader />;
+  }
+
   return location ? (
     <>
-      <h1>Welcome</h1>
-      <p>{`Your location is ${location.lat}, ${location.lon}`}</p>
-      {city && <p>{`Your city is ${city}`}</p>}
       <CurrentWeather />
+      <Forecast />
     </>
   ) : (
-    <p>
-      You need to allow location access in order to get current weather
-      information for your city.
-    </p>
+    // <p>
+    //   You need to allow location access in order to get current weather
+    //   information for your city.
+    // </p>
+    <Loader />
   );
 }

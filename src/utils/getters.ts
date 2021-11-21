@@ -1,13 +1,22 @@
-import { getHrsAndMinsFromDate } from "./formatters";
+import {
+  getHrsAndMinsFromDate,
+  formatDate,
+  shortFormattedDate,
+} from "./formatters";
+
+/////////////////////////////////////////
+// for current weather by city responses:
 
 // 50x50
 export function getIcon(data: { weather: { icon: string }[] }) {
-  return "http://openweathermap.org/img/wn/" + data.weather[0].icon + ".png";
+  return "https://openweathermap.org/img/wn/" + data.weather[0].icon + ".png";
 }
 
 // 100x100
 export function getIcon2x(data: { weather: { icon: string }[] }) {
-  return "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png";
+  return (
+    "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
+  );
 }
 
 export function getCoords(data: { coord: { lon: number; lat: number } }) {
@@ -65,4 +74,46 @@ export function getSunrise(data: { sys: { sunrise: number } }) {
 }
 export function getSunset(data: { sys: { sunset: number } }) {
   return getHrsAndMinsFromDate(data.sys.sunset * 1000); // timestamp in seconds, not millisecs!
+}
+
+////////////////////////////////////////
+// for one-call responses:
+
+export function get7dayForecast(data: {
+  daily: { temp: { min: number; max: number }; dt: number }[];
+}) {
+  const forecast: { day: string; min: number; max: number }[] = data.daily.map(
+    (e) => ({
+      day: shortFormattedDate(e.dt * 1000),
+      min: Math.round(e.temp.min),
+      max: Math.round(e.temp.max),
+    })
+  );
+  return forecast;
+}
+
+// 100x100
+export function getDailyWeatherIcons2x(data: {
+  daily: {
+    weather: { icon: string; description: string }[];
+  }[];
+}) {
+  const icons = data.daily.map((e) => ({
+    icon: "https://openweathermap.org/img/wn/" + e.weather[0].icon + "@2x.png",
+    description: e.weather[0].description,
+  }));
+  return icons;
+}
+
+// 50x50
+export function getDailyWeatherIcons(data: {
+  daily: {
+    weather: { icon: string; description: string }[];
+  }[];
+}) {
+  const icons = data.daily.map((e) => ({
+    icon: "https://openweathermap.org/img/wn/" + e.weather[0].icon + ".png",
+    description: e.weather[0].description,
+  }));
+  return icons;
 }

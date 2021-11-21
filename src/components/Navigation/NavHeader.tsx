@@ -4,7 +4,7 @@ import styled from "styled-components";
 const StyledHeader = styled.header`
   margin: 0;
   padding: 1rem 1rem;
-  background: #e47b03;
+  background: darkorange;
 `;
 
 const StyledNav = styled.nav`
@@ -27,6 +27,9 @@ const StyledNav = styled.nav`
     color: darkred;
 
     text-transform: uppercase;
+  }
+  & a:hover {
+    background-color: unset;
   }
 `;
 

@@ -16,3 +16,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+a {
+  /* text-decoration: none; */
+  font-weight: bold;
+  color: inherit;
+}
+a:hover {
+  background-color: rgba(255, 166, 0, 0.315);
+}

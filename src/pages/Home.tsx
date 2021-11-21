@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import CurrentWeather from "../components/CurrentWeather/CurrentWeather";
 
 export default function Home() {
   const [location, setLocation] = useState<{ lon: number; lat: number }>();
@@ -37,6 +38,7 @@ export default function Home() {
       <h1>Welcome</h1>
       <p>{`Your location is ${location.lat}, ${location.lon}`}</p>
       {city && <p>{`Your city is ${city}`}</p>}
+      <CurrentWeather />
     </>
   ) : (
     <p>

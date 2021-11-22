@@ -18,7 +18,7 @@ const ForecastUl = styled.ul`
     justify-content: space-evenly;
     align-items: center;
     font-size: 0.7rem;
-    max-width: calc(95vw / 8.3);
+    max-width: calc(95vw / 8.7);
   }
   & li img {
     /* max-width: 10vw; */

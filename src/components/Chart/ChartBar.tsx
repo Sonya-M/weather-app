@@ -3,7 +3,11 @@ import styled from "styled-components";
 const TempBar = styled.div`
   height: 100%;
   width: 2.3rem;
-  max-width: calc(90vw / 9);
+  max-width: calc(10vw);
+
+  & img {
+    max-width: 100%;
+  }
 
   @media screen and(min-width: 400px) {
     width: 3rem;

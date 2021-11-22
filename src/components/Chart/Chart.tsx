@@ -7,8 +7,9 @@ import styled from "styled-components";
 const TempChart = styled.div`
   margin: auto;
   padding: 1rem;
-  border-radius: 12px;
+  border-radius: 8px;
   background-color: #f8dfff;
+  box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.2);
   text-align: center;
   width: max-content;
   max-width: 95vw;

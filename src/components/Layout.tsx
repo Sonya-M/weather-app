@@ -9,7 +9,7 @@ const Container = styled.main`
   justify-content: center;
   gap: 1rem;
 
-  max-width: 100vw;
+  max-width: 100%;
 
   @media (min-width: 400px) {
     margin: 1rem;

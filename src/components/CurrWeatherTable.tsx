@@ -23,8 +23,8 @@ const StyledTable = styled.table`
 `;
 
 const CurrWeatherTable: React.FC<{
-  minTemp: string;
-  maxTemp: string;
+  // minTemp: string;
+  // maxTemp: string;
   feelsLike: string;
   sunrise: string;
   sunset: string;
@@ -34,7 +34,7 @@ const CurrWeatherTable: React.FC<{
   return (
     <StyledTable>
       <tbody>
-        <tr>
+        {/* <tr>
           <th>
             <FaTemperatureLow className="fa" />
           </th>
@@ -45,7 +45,7 @@ const CurrWeatherTable: React.FC<{
             <FaTemperatureHigh className="fa" />
           </th>
           <td>{props.maxTemp}</td>
-        </tr>
+        </tr> */}
         <tr>
           <th>
             <WiStrongWind />

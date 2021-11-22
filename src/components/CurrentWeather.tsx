@@ -1,5 +1,5 @@
-import { CITY_CURRENT_WEATHER_METRIC as cc } from "../placeholder-data/current_weather";
 import * as getters from "../utils/getters";
+import { CurrentData } from "../models/CurrentData";
 import CurrWeatherTable from "./CurrWeatherTable";
 import StyledSection from "./StyledSection";
 
@@ -15,11 +15,11 @@ const WeatherSummaryDiv = styled.div`
   }
 `;
 
-const CurrentWeather: React.FC = (props) => {
-  const data = cc;
+const CurrentWeather: React.FC<{ data: CurrentData }> = (props) => {
+  const { data } = props;
   return (
     <StyledSection>
-      <h2>Current weather in {data.name}</h2>
+      <h2>Current weather in {getters.getAreaName(data)}</h2>
       <WeatherSummaryDiv>
         <img
           src={getters.getIcon2x(data)}
@@ -38,8 +38,8 @@ const CurrentWeather: React.FC = (props) => {
         sunset={getters.getSunset(data)}
         humidity={`${getters.getHumidity(data)}%`}
         wind={`${getters.getWindSpeed(data)} m/s`}
-        minTemp={`${getters.getMinTemp(data)}°C`}
-        maxTemp={`${getters.getMaxTemp(data)}°C`}
+        // minTemp={`${getters.getMinTemp(data)}°C`}
+        // maxTemp={`${getters.getMaxTemp(data)}°C`}
         feelsLike={`${getters.getFeelsLikeTemp(data)}°C`}
       />
     </StyledSection>

@@ -1,11 +1,11 @@
-import {
-  getHrsAndMinsFromDate,
-  formatDate,
-  shortFormattedDate,
-} from "./formatters";
+import { getHrsAndMinsFromDate, shortFormattedDate } from "./formatters";
 
 /////////////////////////////////////////
 // for current weather by city responses:
+
+export function getAreaName(data: { name: string }) {
+  return data.name;
+}
 
 // 50x50
 export function getIcon(data: { weather: { icon: string }[] }) {

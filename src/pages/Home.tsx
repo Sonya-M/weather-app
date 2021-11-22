@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
-import CurrentWeather from "../components/CurrentWeather";
-import Forecast from "../components/Forecast";
 import Loader from "../components/Loader";
+import Weather from "../components/Weather";
 
 interface Location {
-  lon: number;
   lat: number;
+  lon: number;
 }
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
-  const [location, setLocation] = useState<Location | null>(null);
-  const [locationError, setLocationError] = useState(false);
+  const [userLocation, setUserLocation] = useState<Location | null>(null);
+  const [userLocationError, setUserLocationError] = useState(false);
 
   const [area, setArea] = useState("");
 
@@ -25,7 +24,7 @@ export default function Home() {
 
     const position = await getCoordinates();
     ///////////////////////////////////////////////////////////////////////////
-    setLocation({
+    setUserLocation({
       lat: position.coords.latitude,
       lon: position.coords.longitude,
     });
@@ -44,7 +43,7 @@ export default function Home() {
     getLocation()
       .catch((error) => {
         console.log(error);
-        setLocationError(true);
+        setUserLocationError(true);
       })
       .finally(() => {
         setLoading(false);
@@ -55,24 +54,15 @@ export default function Home() {
     return <Loader />;
   }
 
-  if (locationError) {
-    return (
-      <p>
-        In order to get the current weather for your location, you need to allow
-        this app location access.
-      </p>
-    );
-  }
-
-  return location ? (
-    <>
-      <CurrentWeather />
-      <Forecast />
-    </>
+  return userLocation ? (
+    <Weather
+      userLocation={{
+        lat: userLocation.lat,
+        lon: userLocation.lon,
+        area: area,
+      }}
+    />
   ) : (
-    <p>
-      You need to allow location access in order to get current weather
-      information for your city.
-    </p>
+    <Weather />
   );
 }

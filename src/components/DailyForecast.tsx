@@ -4,19 +4,21 @@ import * as getters from "../utils/getters";
 import styled from "styled-components";
 
 const ForecastUl = styled.ul`
+  margin: auto;
   display: flex;
-  padding: 0;
-  max-width: 100vw;
+  padding: 1rem;
+  width: max-content;
+  max-width: 95vw;
   overflow-x: auto;
 
   list-style-type: none;
   & li {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     font-size: 0.7rem;
-    max-width: 10vw;
+    max-width: calc(95vw / 8.3);
   }
   & li img {
     /* max-width: 10vw; */

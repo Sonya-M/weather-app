@@ -5,21 +5,24 @@ import ChartBar from "./ChartBar";
 import styled from "styled-components";
 
 const TempChart = styled.div`
+  margin: auto;
+  padding: 1rem;
   border-radius: 12px;
   background-color: #f8dfff;
   text-align: center;
   width: max-content;
-  max-width: 100vw;
+  max-width: 95vw;
   overflow-x: auto;
 
   display: flex;
   justify-content: flex-start;
-  gap: 0.4rem;
+  gap: 0.2rem;
 
-  height: 14rem;
+  height: 13rem;
+  min-height: fit-content;
 
   @media screen and (min-width: 400px) {
-    padding: 1rem;
+    gap: 0.4rem;
   }
 `;
 

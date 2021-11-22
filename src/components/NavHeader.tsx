@@ -6,6 +6,7 @@ const StyledHeader = styled.header`
   padding: 1rem 1rem;
   /* background: #015791; */
   background: var(--heading-color);
+  width: 100vw;
 `;
 
 const StyledNav = styled.nav`
@@ -17,9 +18,14 @@ const StyledNav = styled.nav`
     margin: 0;
     list-style-type: none;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    gap: 4rem;
+    /* gap: 2rem; */
+  }
+  @media screen and (min-width: 400px) {
+    & ul {
+      gap: 4rem;
+    }
   }
   & a {
     text-decoration: none;

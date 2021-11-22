@@ -7,7 +7,7 @@ import styled from "styled-components";
 
 const WeatherSummaryDiv = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
 
   & .temp {

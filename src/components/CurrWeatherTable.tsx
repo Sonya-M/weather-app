@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { FaTemperatureLow, FaTemperatureHigh } from "react-icons/fa";
 
 const StyledTable = styled.table`
+  margin: auto;
+  padding: 1rem;
+  max-width: 100%;
   & th {
     width: 3rem;
     font-size: 2rem;

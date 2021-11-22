@@ -2,7 +2,7 @@ import CurrentWeather from "./CurrentWeather";
 import Forecast from "./Forecast";
 import { LocationData } from "../models/Location";
 import { useEffect, useState } from "react";
-import { getCurrentWeather } from "../service/http-service";
+import { getCurrentWeather, getForecast } from "../service/http-service";
 import { CurrentData } from "../models/CurrentData";
 import { ForecastData } from "../models/ForecastData";
 
@@ -19,7 +19,7 @@ const Weather: React.FC<{ userLocation?: LocationData }> = (props) => {
 
   useEffect(() => {
     setLoading(true);
-    getCurrentWeather("novi sad")
+    getCurrentWeather("munich")
       .then((d) => setData(d))
       .catch((err) => {
         console.log(err);
@@ -30,17 +30,36 @@ const Weather: React.FC<{ userLocation?: LocationData }> = (props) => {
       });
   }, []);
 
+  useEffect(() => {
+    if (!data) return;
+    setLoadingForecast(true);
+    getForecast(data.coord)
+      .then((d) => setForecastData(d))
+      .catch((err) => {
+        console.log(err);
+        setForecastError(err);
+      })
+      .finally(() => {
+        setLoadingForecast(false);
+      });
+  }, [data]);
+
   if (error) {
     return <p>ERROR</p>;
   }
-  if (loading) {
+  if (loading || loadingForecast) {
     return <Loader />;
   }
 
   return data ? (
     <>
       <CurrentWeather data={data} />
-      <Forecast />
+      {forecastData ? (
+        <Forecast data={forecastData} />
+      ) : (
+        // TODO:
+        <p>Failed to load forecast</p>
+      )}
     </>
   ) : (
     <p>Unexpected error.</p>

@@ -1,6 +1,6 @@
 import { ONE_CALL } from "../../placeholder-data/one_call";
 import * as getters from "../../utils/getters";
-
+import { ForecastData } from "../../models/ForecastData";
 import ChartBar from "./ChartBar";
 import styled from "styled-components";
 
@@ -19,7 +19,7 @@ const TempChart = styled.div`
   justify-content: flex-start;
   gap: 0.2rem;
 
-  height: 13rem;
+  height: 300px; /* fixed width for easy calc */
   min-height: fit-content;
 
   @media screen and (min-width: 400px) {
@@ -27,11 +27,14 @@ const TempChart = styled.div`
   }
 `;
 
-const Chart = () => {
-  const dailyF = getters.get7dayForecast(ONE_CALL);
+const Chart: React.FC<{ data: ForecastData }> = (props) => {
+  const dailyF = getters.get7dayForecast(props.data);
   console.log("dailyF: ", dailyF);
   const forecast = dailyF.map((f) => ({ min: f.min, max: f.max, day: f.day }));
   const weeklyMax = Math.max(...dailyF.map((f) => f.max));
+  const weeklyMin = Math.min(...dailyF.map((f) => f.min));
+  // note that data is in Kelvins for easier calculations :)
+  const tempRange = weeklyMax - weeklyMin;
   const icons = getters.getDailyWeatherIcons(ONE_CALL);
 
   return (
@@ -41,9 +44,12 @@ const Chart = () => {
         {forecast.map((f, i) => (
           <ChartBar
             forecast={f}
-            max={weeklyMax}
             key={"" + i}
             weather={icons[i]}
+            weeklyMax={weeklyMax}
+            weeklyMin={weeklyMin}
+            range={tempRange}
+            chartHeight={300}
           />
         ))}
       </TempChart>

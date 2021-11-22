@@ -3,45 +3,65 @@ import CurrentWeather from "../components/CurrentWeather";
 import Forecast from "../components/Forecast";
 import Loader from "../components/Loader";
 
+interface Location {
+  lon: number;
+  lat: number;
+}
+
 export default function Home() {
   const [loading, setLoading] = useState(false);
-  const [location, setLocation] = useState<{ lon: number; lat: number }>();
+  const [location, setLocation] = useState<Location | null>(null);
+  const [locationError, setLocationError] = useState(false);
 
-  const [city, setCity] = useState("");
+  const [area, setArea] = useState("");
+
+  const getLocation = async () => {
+    const getCoordinates = () => {
+      // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      return new Promise<GeolocationPosition>(function (resolve, reject) {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+      });
+    };
+
+    const position = await getCoordinates();
+    ///////////////////////////////////////////////////////////////////////////
+    setLocation({
+      lat: position.coords.latitude,
+      lon: position.coords.longitude,
+    });
+    const response = await fetch(
+      `https://api.openweathermap.org/geo/1.0/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&limit=1&appid=${process.env.REACT_APP_API_KEY}`
+    );
+    if (!response.ok) throw new Error("Failed to get area");
+    const data = await response.json();
+    if (!data?.length) throw new Error("Unexpected data");
+    console.log(data[0].name);
+    setArea(data[0].name); ////////////////////////////////////////////////////
+  };
 
   useEffect(() => {
     setLoading(true);
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position.coords.longitude);
-        console.log(position.coords.latitude);
-        setLocation({
-          lon: position.coords.longitude,
-          lat: position.coords.latitude,
-        });
-
-        // fetch(
-        //   `https://api.openweathermap.org/geo/1.0/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&limit=1&appid=${process.env.REACT_APP_API_KEY}`
-        // )
-        //   .then((res) => res.json())
-        //   .then((data) => {
-        //     if (data?.length) {
-        //       setCity(data[0].name);
-        //       console.log(data[0].name);
-        //     }
-        //   })
-        //   .catch((err) => console.log(err));
+    getLocation()
+      .catch((error) => {
+        console.log(error);
+        setLocationError(true);
+      })
+      .finally(() => {
+        setLoading(false);
       });
-    } else {
-      console.log("Not Available");
-    }
-    setLoading(false);
   }, []);
-
-  console.log(location);
 
   if (loading) {
     return <Loader />;
+  }
+
+  if (locationError) {
+    return (
+      <p>
+        In order to get the current weather for your location, you need to allow
+        this app location access.
+      </p>
+    );
   }
 
   return location ? (
@@ -50,10 +70,9 @@ export default function Home() {
       <Forecast />
     </>
   ) : (
-    // <p>
-    //   You need to allow location access in order to get current weather
-    //   information for your city.
-    // </p>
-    <Loader />
+    <p>
+      You need to allow location access in order to get current weather
+      information for your city.
+    </p>
   );
 }

@@ -1,4 +1,3 @@
-import { ONE_CALL } from "../../placeholder-data/one_call";
 import * as getters from "../../utils/getters";
 import { ForecastData } from "../../models/ForecastData";
 import ChartBar from "./ChartBar";
@@ -38,7 +37,7 @@ const Chart: React.FC<{ data: ForecastData }> = (props) => {
   const weeklyMin = Math.min(...dailyF.map((f) => f.min));
   // note that data is in Kelvins for easier calculations :)
   const tempRange = weeklyMax - weeklyMin;
-  const icons = getters.getDailyWeatherIcons(ONE_CALL);
+  const icons = getters.getDailyWeatherIcons(props.data);
 
   return (
     <>

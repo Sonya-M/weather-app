@@ -38,8 +38,8 @@ const CurrentWeather: React.FC<{ data: CurrentData }> = (props) => {
         sunset={getters.getSunset(data)}
         humidity={`${getters.getHumidity(data)}%`}
         wind={`${getters.getWindSpeed(data)} m/s`}
-        // minTemp={`${getters.getMinTemp(data)}°C`}
-        // maxTemp={`${getters.getMaxTemp(data)}°C`}
+        minTemp={`${getters.getMinTemp(data)}°C`}
+        maxTemp={`${getters.getMaxTemp(data)}°C`}
         feelsLike={`${getters.getFeelsLikeTemp(data)}°C`}
       />
     </StyledSection>

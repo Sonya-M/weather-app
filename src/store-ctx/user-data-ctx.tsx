@@ -1,24 +1,17 @@
 import React, { useState, useEffect } from "react";
 
-type Coords = {
-  lat: number;
-  lon: number;
-};
 type UserDataCtxObj = {
-  coords: Coords | null;
   area: string;
   loading: boolean;
 };
 
 export const UserDataContext = React.createContext<UserDataCtxObj>({
-  coords: null,
   area: "",
   loading: false,
 });
 
 const UserDataContextProvider: React.FC = (props) => {
   const [loading, setLoading] = useState(false);
-  const [userLocation, setUserLocation] = useState<Coords | null>(null);
   const [userArea, setUserArea] = useState("");
 
   const getLocation = async () => {
@@ -27,12 +20,7 @@ const UserDataContextProvider: React.FC = (props) => {
         navigator.geolocation.getCurrentPosition(resolve, reject);
       });
     };
-
     const position = await getCoordinates();
-    setUserLocation({
-      lat: position.coords.latitude,
-      lon: position.coords.longitude,
-    });
     const response = await fetch(
       `https://api.openweathermap.org/geo/1.0/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&limit=1&appid=${process.env.REACT_APP_API_KEY}`
     );
@@ -48,7 +36,7 @@ const UserDataContextProvider: React.FC = (props) => {
     getLocation()
       .catch((error) => {
         console.log(error);
-        // silently catch the error, location data will remain null
+        // silently catch the error, location data will not be set
       })
       .finally(() => {
         setLoading(false);
@@ -56,9 +44,7 @@ const UserDataContextProvider: React.FC = (props) => {
   }, []);
 
   return (
-    <UserDataContext.Provider
-      value={{ coords: userLocation, area: userArea, loading: loading }}
-    >
+    <UserDataContext.Provider value={{ area: userArea, loading: loading }}>
       {props.children}
     </UserDataContext.Provider>
   );

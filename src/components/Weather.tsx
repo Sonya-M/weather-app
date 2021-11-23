@@ -8,7 +8,7 @@ import { ForecastData } from "../models/ForecastData";
 import Loader from "./Loader";
 
 const Weather: React.FC<{
-  userLocation: { lat: number; lon: number; area: string } | null;
+  area: string;
 }> = (props) => {
   const [data, setData] = useState<CurrentData | null>(null);
   const [error, setError] = useState<Error | null>(null);
@@ -19,10 +19,11 @@ const Weather: React.FC<{
   const [loadingForecast, setLoadingForecast] = useState<boolean>(false);
 
   useEffect(() => {
+    if (!props.area) return;
     let isMounted = true; // https://stackoverflow.com/questions/53949393/cant-perform-a-react-state-update-on-an-unmounted-component
     // seems kind of hacky to me though...
     setLoading(true);
-    getCurrentWeather("munich")
+    getCurrentWeather(props.area)
       .then((d) => {
         if (isMounted) setData(d);
       })
@@ -36,7 +37,7 @@ const Weather: React.FC<{
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [props.area]);
 
   useEffect(() => {
     if (!data) return;

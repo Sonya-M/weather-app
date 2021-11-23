@@ -38,11 +38,11 @@ a:hover {
 
 @media screen and (max-width: 300px) {
   body {
-    font-size: 10px;
+    font-size: 12px;
   }
 }
 @media screen and (max-width: 500px) {
   body {
-    font-size: 12px;
+    font-size: 14px;
   }
 }

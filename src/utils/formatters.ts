@@ -36,3 +36,8 @@ export function formatQuery(q: string) {
   const words = q.trim().split(/\s+/);
   return words.join("+");
 }
+
+export function formatQueryForRouter(q: string) {
+  const words = q.trim().split(/\s+/);
+  return words.join(" ");
+}

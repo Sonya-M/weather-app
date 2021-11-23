@@ -1,13 +1,17 @@
 import React, { useRef } from "react";
+import { useSearchParams } from "react-router-dom";
+import { formatQueryForRouter } from "../utils/formatters";
 import styled from "styled-components";
 
 const SearchForm = styled.form`
-  margin: auto;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   & input {
+    margin: 0;
     outline: none;
     border: none;
     border-radius: 0.3rem;
@@ -22,8 +26,9 @@ const SearchForm = styled.form`
   }
 `;
 
-const Search: React.FC<{ onSearch: (q: string) => void }> = (props) => {
+const Search: React.FC = (props) => {
   const searchRef = useRef<HTMLInputElement>(null);
+  let setSearchParams = useSearchParams()[1];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,7 +36,7 @@ const Search: React.FC<{ onSearch: (q: string) => void }> = (props) => {
     if (query.trim().length === 0) {
       return;
     }
-    props.onSearch(query);
+    setSearchParams({ q: formatQueryForRouter(query) });
     searchRef.current!.value = "";
   };
   return (

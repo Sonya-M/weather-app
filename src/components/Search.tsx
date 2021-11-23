@@ -1,6 +1,4 @@
 import React, { useRef } from "react";
-import { useSearchParams } from "react-router-dom";
-import { formatQueryForRouter } from "../utils/formatters";
 import styled from "styled-components";
 
 const SearchForm = styled.form`
@@ -26,9 +24,8 @@ const SearchForm = styled.form`
   }
 `;
 
-const Search: React.FC = (props) => {
+const Search: React.FC<{ onSearch: (q: string) => void }> = (props) => {
   const searchRef = useRef<HTMLInputElement>(null);
-  let setSearchParams = useSearchParams()[1];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,7 +33,7 @@ const Search: React.FC = (props) => {
     if (query.trim().length === 0) {
       return;
     }
-    setSearchParams({ q: formatQueryForRouter(query) });
+    props.onSearch(query);
     searchRef.current!.value = "";
   };
   return (

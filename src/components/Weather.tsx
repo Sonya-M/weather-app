@@ -55,7 +55,7 @@ const Weather: React.FC<{
   if (error) {
     const msg =
       error.message === "404"
-        ? "Found no data for '" + props.area + "'"
+        ? "No data for '" + props.area + "'"
         : "Error: " + error.message;
     return (
       <FullWidthSection>

@@ -16,7 +16,14 @@ export default function About() {
       <h1>About this app</h1>
       <p>
         This app uses the awesome (and free!){" "}
-        <a href="https://openweathermap.org/">OpenWeather</a> API.
+        <a
+          href="https://openweathermap.org/"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          OpenWeather
+        </a>{" "}
+        API.
       </p>
     </StyledSection>
   );

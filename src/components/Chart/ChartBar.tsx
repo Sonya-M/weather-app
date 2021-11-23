@@ -62,8 +62,10 @@ const ChartBar: React.FC<{
   let minBarFillHeight = "100%";
 
   if (props.range > 0) {
-    // leave some space for the labels, like 20%:
-    const oneDegreeHeight = (0.8 * props.chartHeight) / props.range;
+    // leave some space for the labels, like 10%:
+    const oneDegreeHeight = Math.round(
+      (0.9 * props.chartHeight) / (props.range + 1)
+    );
     maxBarFillHeight =
       (props.forecast.max - props.weeklyMin + 1) * oneDegreeHeight + "px";
     minBarFillHeight =

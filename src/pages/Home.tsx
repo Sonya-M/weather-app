@@ -6,8 +6,6 @@ import { UserDataContext } from "../store-ctx/user-data-ctx";
 import { useSearchParams } from "react-router-dom";
 import FullWidthSection from "../components/FullWidthSection";
 
-import styled from "styled-components";
-
 export default function Home() {
   const userDataCtx = useContext(UserDataContext);
 

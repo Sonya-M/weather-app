@@ -1,5 +1,5 @@
-export interface LocationData {
+export type LocationData = {
   lon: number;
   lat: number;
   area: string;
-}
+};

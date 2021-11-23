@@ -1772,17 +1772,20 @@ const FORECAST_URL = `https://api.openweathermap.org/data/2.5/onecall?appid=${pr
 
 export async function getCurrentWeather(q: string): Promise<CurrentData> {
   // keep your precious api calls until ready
-  return Promise.resolve(DUMMY_CURRENT_WEATHER);
+  // return Promise.resolve(DUMMY_CURRENT_WEATHER);
 
-  // q = formatQuery(q);
-  // const res = await fetch(CURRENT_WEATHER_URL + "&q=" + q);
-  // // const resp = await fetch(CURRENT_WEATHER_URL);
+  q = formatQuery(q);
+  const res = await fetch(CURRENT_WEATHER_URL + "&q=" + q);
+  // const resp = await fetch(CURRENT_WEATHER_URL);
 
-  // console.log(res);
-  // if (!res.ok) throw new Error("Failed to load current weather");
-  // const data = await res.json();
-  // console.log(data);
-  // return  data;
+  console.log(res);
+  if (!res.ok) {
+    console.log(res);
+    throw new Error("Failed to load current weather");
+  }
+  const data = await res.json();
+  console.log(data);
+  return data;
 }
 
 export async function getForecast(coords: {
@@ -1790,14 +1793,17 @@ export async function getForecast(coords: {
   lon: number;
 }): Promise<ForecastData> {
   // keep your precious api calls until ready
-  return Promise.resolve(ONE_CALL);
+  // return Promise.resolve(ONE_CALL);
 
-  // const res = await fetch(
-  //   `${FORECAST_URL}&lat=${coords.lat}&lon=${coords.lon}`
-  // );
-  // console.log(res);
-  // if (!res.ok) throw new Error("Failed to load forecast");
-  // const data = await res.json();
-  // console.log(data);
-  // return data;
+  const res = await fetch(
+    `${FORECAST_URL}&lat=${coords.lat}&lon=${coords.lon}`
+  );
+  console.log(res);
+  if (!res.ok) {
+    console.log(res);
+    throw new Error("Failed to load forecast");
+  }
+  const data = await res.json();
+  console.log(data);
+  return data;
 }

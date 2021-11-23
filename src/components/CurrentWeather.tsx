@@ -19,7 +19,10 @@ const CurrentWeather: React.FC<{ data: CurrentData }> = (props) => {
   const { data } = props;
   return (
     <StyledSection>
-      <h2>Current weather in {getters.getAreaName(data)}</h2>
+      <h2>
+        Current weather in {getters.getAreaName(data)},{" "}
+        {getters.getCountry(data)}
+      </h2>
       <WeatherSummaryDiv>
         <img
           src={getters.getIcon2x(data)}

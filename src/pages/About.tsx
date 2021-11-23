@@ -3,6 +3,7 @@ import styled from "styled-components";
 const StyledSection = styled.section`
   text-align: center;
   grid-column: span 2;
+  font-size: 1.1rem;
   & h1 {
     font-size: 2rem;
     font-weight: 500;

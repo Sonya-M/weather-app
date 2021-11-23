@@ -23,6 +23,7 @@ const StyledNav = styled.nav`
     /* gap: 2rem; */
   }
   @media screen and (min-width: 400px) {
+    font-size: 1.1.rem;
     & ul {
       gap: 4rem;
     }
@@ -30,7 +31,6 @@ const StyledNav = styled.nav`
   & a {
     text-decoration: none;
     font-weight: bold;
-    font-size: 1.2rem;
     color: #f30606;
     text-shadow: 2px 2px 2px black;
     text-transform: uppercase;

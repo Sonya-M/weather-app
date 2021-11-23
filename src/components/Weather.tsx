@@ -6,6 +6,8 @@ import { CurrentData } from "../models/CurrentData";
 import { ForecastData } from "../models/ForecastData";
 
 import Loader from "./Loader";
+import StyledMessage from "./StyledMessage";
+import FullWidthSection from "./FullWidthSection";
 
 const Weather: React.FC<{
   area: string;
@@ -17,12 +19,11 @@ const Weather: React.FC<{
   const [loading, setLoading] = useState<boolean>(false);
 
   const [forecastData, setForecastData] = useState<ForecastData | null>(null);
-  const [forecastError, setForecastError] = useState<Error | null>(null);
   const [loadingForecast, setLoadingForecast] = useState<boolean>(false);
 
   useEffect(() => {
     setLoading(true);
-    setError(null);
+    setError(null); // must reset!
     getCurrentWeather(props.area)
       .then((d) => {
         setCurrWeatherData(d);
@@ -39,12 +40,12 @@ const Weather: React.FC<{
   useEffect(() => {
     if (!currWeatherData) return;
     setLoadingForecast(true);
-    setForecastError(null);
     getForecast(currWeatherData.coord)
       .then((d) => setForecastData(d))
       .catch((err) => {
         console.log(err);
-        setForecastError(err);
+        // no need to keep track of this error in state - enough to know
+        // there is no data
       })
       .finally(() => {
         setLoadingForecast(false);
@@ -52,7 +53,15 @@ const Weather: React.FC<{
   }, [currWeatherData]);
 
   if (error) {
-    return <p>NO DATA</p>; // TODO
+    const msg =
+      error.message === "404"
+        ? "Found no data for '" + props.area + "'"
+        : "Error: " + error.message;
+    return (
+      <FullWidthSection>
+        <StyledMessage color="darkred">{msg}</StyledMessage>
+      </FullWidthSection>
+    );
   }
   if (loading || loadingForecast) {
     return <Loader />;
@@ -64,12 +73,16 @@ const Weather: React.FC<{
       {forecastData ? (
         <Forecast data={forecastData} />
       ) : (
-        // TODO:
-        <p>Failed to load forecast</p>
+        <StyledMessage color="darkred">Failed to load forecast</StyledMessage>
       )}
     </>
   ) : (
-    <p>SORRY, NO DATA</p> // TODO
+    <FullWidthSection>
+      <StyledMessage color="darkred">
+        <p>Sorry, an unexpected error has occurred.</p>
+        <p>Try a new search.</p>
+      </StyledMessage>
+    </FullWidthSection>
   );
 };
 

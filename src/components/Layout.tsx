@@ -7,7 +7,6 @@ const Container = styled.main`
   padding: 0 1rem;
   display: grid;
   justify-content: center;
-  gap: 1rem;
 
   max-width: 100%;
 

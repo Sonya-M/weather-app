@@ -3,7 +3,10 @@ import styled from "styled-components";
 
 const SearchForm = styled.form`
   margin: auto;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   & input {
     outline: none;
     border: none;
@@ -17,12 +20,9 @@ const SearchForm = styled.form`
   & input:active {
     box-shadow: 0 0 2px 2px rgba(12, 107, 145, 0.4);
   }
-  @media screen and (min-width: 900px) {
-    grid-column: span 2;
-  }
 `;
 
-const SearchBar: React.FC<{ onSearch: (q: string) => void }> = (props) => {
+const Search: React.FC<{ onSearch: (q: string) => void }> = (props) => {
   const searchRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -32,7 +32,7 @@ const SearchBar: React.FC<{ onSearch: (q: string) => void }> = (props) => {
       return;
     }
     props.onSearch(query);
-    // searchRef.current!.value = "";
+    searchRef.current!.value = "";
   };
   return (
     <SearchForm onSubmit={handleSubmit}>
@@ -41,4 +41,4 @@ const SearchBar: React.FC<{ onSearch: (q: string) => void }> = (props) => {
   );
 };
 
-export default SearchBar;
+export default Search;

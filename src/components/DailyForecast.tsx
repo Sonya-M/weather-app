@@ -1,4 +1,3 @@
-import { ONE_CALL } from "../placeholder-data/one_call";
 import * as getters from "../utils/getters";
 import { ForecastData } from "../models/ForecastData";
 
@@ -28,14 +27,8 @@ const ForecastUl = styled.ul`
 
 const DailyForecast: React.FC<{ data: ForecastData }> = (props) => {
   const forecast = props.data;
-  console.log(getters.get7dayForecast(forecast));
-  console.log("icons: ", getters.getDailyWeatherIcons2x(forecast));
-  console.log("icons: ", getters.getDailyWeatherIcons(forecast));
-
   const dailyF = getters.get7dayForecast(forecast);
   const icons = getters.getDailyWeatherIcons(forecast);
-  console.log("dailyF: ", dailyF);
-
   return (
     <section>
       <h3>Weather Conditions</h3>

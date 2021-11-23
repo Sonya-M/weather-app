@@ -28,13 +28,11 @@ export function shortFormattedDate(dt: number) {
   const date = new Date(dt);
   let d = date.getDate();
   let m = date.getMonth();
-  let y = date.getFullYear();
   return pad(d) + "/" + pad(m + 1);
   // return date.toLocaleDateString()
 }
 
 export function formatQuery(q: string) {
   const words = q.trim().split(/\s+/);
-  console.log(`words: ${words}`);
   return words.join("+");
 }

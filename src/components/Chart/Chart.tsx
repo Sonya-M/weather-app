@@ -33,7 +33,6 @@ const TempChart = styled.div`
 
 const Chart: React.FC<{ data: ForecastData }> = (props) => {
   const dailyF = getters.get7dayForecast(props.data);
-  console.log("dailyF: ", dailyF);
   const forecast = dailyF.map((f) => ({ min: f.min, max: f.max, day: f.day }));
   const weeklyMax = Math.max(...dailyF.map((f) => f.max));
   const weeklyMin = Math.min(...dailyF.map((f) => f.min));

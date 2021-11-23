@@ -29,6 +29,7 @@ const ChartBarFillMax = styled.div`
   background-color: #eff301;
   width: 100%;
   position: relative;
+  bottom: 0;
 `;
 
 const ChartBarFillMin = styled.div`
@@ -42,6 +43,7 @@ const ChartBarLabel = styled.div`
   font-weight: bold;
   font-size: 0.7rem;
   text-align: center;
+  z-index: 2;
 `;
 
 const ChartBar: React.FC<{
@@ -56,28 +58,31 @@ const ChartBar: React.FC<{
   weeklyMax: number;
   chartHeight: number;
 }> = (props) => {
-  
-  let barFillHeight = "100%";
+  let maxBarFillHeight = "100%";
   let minBarFillHeight = "100%";
 
   if (props.range > 0) {
-    const oneDegreeHeight = props.chartHeight / props.range;
-    barFillHeight =
-      (props.forecast.max - props.weeklyMin) * oneDegreeHeight + "px";
+    // leave some space for the labels, like 20%:
+    const oneDegreeHeight = (0.8 * props.chartHeight) / props.range;
+    maxBarFillHeight =
+      (props.forecast.max - props.weeklyMin + 1) * oneDegreeHeight + "px";
     minBarFillHeight =
-      (props.forecast.min - props.weeklyMin) * oneDegreeHeight + "px";
-    if (minBarFillHeight === "0px") minBarFillHeight = "1px"; // to see sth
+      (props.forecast.min - props.weeklyMin + 1) * oneDegreeHeight + "px";
+    // console.log(`1 deg height: ${oneDegreeHeight};
+    // maxBarFillHeight: ${maxBarFillHeight};
+    // minBarFillHeight: ${minBarFillHeight}`);
   }
   return (
     <TempBar>
-      {/* <img src={props.weather.icon} alt={props.weather.description} /> */}
       <ChartBarInner>
         <ChartBarLabel>{`${KelvinToCelsius(
           props.forecast.max
         )}°`}</ChartBarLabel>
-        <ChartBarFillMax style={{ height: barFillHeight }}>
+
+        <ChartBarFillMax style={{ height: maxBarFillHeight }}>
           <ChartBarFillMin style={{ height: minBarFillHeight }} />
         </ChartBarFillMax>
+
         <ChartBarLabel>{`${KelvinToCelsius(
           props.forecast.min
         )}°`}</ChartBarLabel>

@@ -4,9 +4,12 @@ import { ForecastData } from "../../models/ForecastData";
 import ChartBar from "./ChartBar";
 import styled from "styled-components";
 
+const CHART_HEIGHT = 300; // 300 px, set it once
+const PADDING = 16;
+
 const TempChart = styled.div`
   margin: auto;
-  padding: 1rem;
+  padding: ${`${PADDING}px`};
   border-radius: 8px;
   background-color: #f8dfff;
   box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.2);
@@ -19,7 +22,8 @@ const TempChart = styled.div`
   justify-content: flex-start;
   gap: 0.2rem;
 
-  height: 300px; /* fixed width for easy calc */
+  height: ${`${CHART_HEIGHT + PADDING * 2}px`}; /* fixed width for easy calc */
+
   min-height: fit-content;
 
   @media screen and (min-width: 400px) {
@@ -49,7 +53,7 @@ const Chart: React.FC<{ data: ForecastData }> = (props) => {
             weeklyMax={weeklyMax}
             weeklyMin={weeklyMin}
             range={tempRange}
-            chartHeight={300}
+            chartHeight={CHART_HEIGHT}
           />
         ))}
       </TempChart>

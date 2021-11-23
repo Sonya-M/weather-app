@@ -52,7 +52,6 @@ export type ForecastData = {
     }[];
     pop: number;
   }[];
-
   daily: {
     dt: number;
     sunrise: number;
@@ -80,14 +79,12 @@ export type ForecastData = {
     wind_speed: number;
     wind_deg: number;
     wind_gust: number;
-    weather: [
-      {
-        id: number;
-        main: string;
-        description: string;
-        icon: string;
-      }
-    ];
+    weather: {
+      id: number;
+      main: string;
+      description: string;
+      icon: string;
+    }[];
     clouds: number;
     pop: number;
     uvi: number;
@@ -98,6 +95,6 @@ export type ForecastData = {
     start: number;
     end: number;
     description: string;
-    tags: [];
+    tags: string[];
   }[];
 };

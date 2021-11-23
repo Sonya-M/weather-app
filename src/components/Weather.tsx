@@ -10,7 +10,9 @@ import Loader from "./Loader";
 const Weather: React.FC<{
   area: string;
 }> = (props) => {
-  const [data, setData] = useState<CurrentData | null>(null);
+  const [currWeatherData, setCurrWeatherData] = useState<CurrentData | null>(
+    null
+  );
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -20,12 +22,12 @@ const Weather: React.FC<{
 
   useEffect(() => {
     if (!props.area) return;
-    let isMounted = true; // https://stackoverflow.com/questions/53949393/cant-perform-a-react-state-update-on-an-unmounted-component
+    // let isMounted = true; // https://stackoverflow.com/questions/53949393/cant-perform-a-react-state-update-on-an-unmounted-component
     // seems kind of hacky to me though...
     setLoading(true);
     getCurrentWeather(props.area)
       .then((d) => {
-        if (isMounted) setData(d);
+        /* if (isMounted)  */ setCurrWeatherData(d);
       })
       .catch((err) => {
         console.log(err);
@@ -34,15 +36,15 @@ const Weather: React.FC<{
       .finally(() => {
         setLoading(false);
       });
-    return () => {
-      isMounted = false;
-    };
+    // return () => {
+    //   isMounted = false;
+    // };
   }, [props.area]);
 
   useEffect(() => {
-    if (!data) return;
+    if (!currWeatherData) return;
     setLoadingForecast(true);
-    getForecast(data.coord)
+    getForecast(currWeatherData.coord)
       .then((d) => setForecastData(d))
       .catch((err) => {
         console.log(err);
@@ -51,7 +53,7 @@ const Weather: React.FC<{
       .finally(() => {
         setLoadingForecast(false);
       });
-  }, [data]);
+  }, [currWeatherData]);
 
   if (error) {
     return <p>ERROR</p>;
@@ -60,9 +62,9 @@ const Weather: React.FC<{
     return <Loader />;
   }
 
-  return data ? (
+  return currWeatherData ? (
     <>
-      <CurrentWeather data={data} />
+      <CurrentWeather data={currWeatherData} />
       {forecastData ? (
         <Forecast data={forecastData} />
       ) : (

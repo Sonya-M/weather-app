@@ -26,13 +26,12 @@ const LocationDataContextProvider: React.FC = (props) => {
       });
     };
     const position = await getCoordinates();
-    const response = await fetch(
-      `https://api.openweathermap.org/geo/1.0/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&limit=1&appid=${process.env.REACT_APP_API_KEY}`
-    );
+    const GEOLOCATION_URL = `https://api.openweathermap.org/geo/1.0/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&limit=1&appid=${process.env.REACT_APP_API_KEY}`;
+    const response = await fetch(GEOLOCATION_URL);
     if (!response.ok) throw new Error("Failed to get area");
     const data = await response.json();
     if (!data?.length) throw new Error("Unexpected data");
-    console.log(data[0].name);
+    // console.log(data[0].name);
     setUserArea(data[0].name);
   };
 

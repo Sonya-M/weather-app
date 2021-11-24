@@ -20,14 +20,11 @@ const ForecastUl = styled.ul`
     font-size: 0.7rem;
     max-width: calc(95vw / 8.7);
   }
-  & li img {
-    /* max-width: 10vw; */
-  }
 `;
 
 const DailyForecast: React.FC<{ data: ForecastData }> = (props) => {
   const forecast = props.data;
-  const dailyF = getters.get7dayForecast(forecast);
+  const dailyF = getters.getDailyForecast(forecast);
   const icons = getters.getDailyWeatherIcons(forecast);
   return (
     <section>

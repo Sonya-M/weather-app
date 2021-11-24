@@ -1,6 +1,6 @@
 import { WiSunrise, WiSunset, WiHumidity, WiStrongWind } from "react-icons/wi";
-import styled from "styled-components";
 import { FaTemperatureLow, FaTemperatureHigh } from "react-icons/fa";
+import styled from "styled-components";
 
 const StyledTable = styled.table`
   margin: auto;

@@ -31,13 +31,12 @@ const TempChart = styled.div`
 `;
 
 const Chart: React.FC<{ data: ForecastData }> = (props) => {
-  const dailyF = getters.get7dayForecast(props.data);
+  const dailyF = getters.getDailyForecast(props.data);
   const forecast = dailyF.map((f) => ({ min: f.min, max: f.max, day: f.day }));
   const weeklyMax = Math.max(...dailyF.map((f) => f.max));
   const weeklyMin = Math.min(...dailyF.map((f) => f.min));
   // note that data is in Kelvins for easier calculations :)
   const tempRange = weeklyMax - weeklyMin;
-  const icons = getters.getDailyWeatherIcons(props.data);
 
   return (
     <>
@@ -47,7 +46,6 @@ const Chart: React.FC<{ data: ForecastData }> = (props) => {
           <ChartBar
             forecast={f}
             key={"" + i}
-            weather={icons[i]}
             weeklyMax={weeklyMax}
             weeklyMin={weeklyMin}
             range={tempRange}

@@ -79,7 +79,7 @@ export function getSunset(data: { sys: { sunset: number } }) {
 ////////////////////////////////////////
 // for one-call responses:
 
-export function get7dayForecast(data: {
+export function getDailyForecast(data: {
   daily: { temp: { min: number; max: number }; dt: number }[];
 }) {
   const forecast: { day: string; min: number; max: number }[] = data.daily.map(

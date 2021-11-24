@@ -4,7 +4,7 @@ import styled from "styled-components";
 const TempBar = styled.div`
   height: 100%;
   width: 2.3rem;
-  max-width: calc(10vw);
+  max-width: 10vw;
 
   & img {
     max-width: 100%;
@@ -52,7 +52,6 @@ const ChartBar: React.FC<{
     max: number;
     day: string;
   };
-  weather: { icon: string; description: string };
   range: number;
   weeklyMin: number;
   weeklyMax: number;

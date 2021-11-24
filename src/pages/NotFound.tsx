@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import FullWidthSection from "../components/FullWidthSection";
-import StyledMessage from "../components/StyledMessage";
+import FullWidthSection from "../components/UI/FullWidthSection";
+import StyledMessage from "../components/UI/StyledMessage";
 
 const CenteredLink = styled.span`
   text-align: center;

@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useSearchParams } from "react-router-dom";
-import { formatQueryForRouter } from "../utils/formatters";
+import { formatQueryForRouter } from "../../utils/formatters";
 import styled from "styled-components";
 
 const SearchForm = styled.form`

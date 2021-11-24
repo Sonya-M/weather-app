@@ -1,4 +1,4 @@
-import { KelvinToCelsius } from "../../utils/converters";
+import { KelvinToCelsius } from "../../../utils/converters";
 import styled from "styled-components";
 
 const TempBar = styled.div`

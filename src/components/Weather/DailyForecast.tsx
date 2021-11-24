@@ -1,5 +1,5 @@
-import * as getters from "../utils/getters";
-import { ForecastData } from "../models/ForecastData";
+import * as getters from "../../utils/getters";
+import { ForecastData } from "../../models/ForecastData";
 
 import styled from "styled-components";
 

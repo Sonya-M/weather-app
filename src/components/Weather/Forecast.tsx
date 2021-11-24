@@ -1,7 +1,7 @@
 import DailyForecast from "./DailyForecast";
 import Chart from "./Chart/Chart";
-import StyledSection from "./StyledSection";
-import { ForecastData } from "../models/ForecastData";
+import StyledSection from "../UI/StyledSection";
+import { ForecastData } from "../../models/ForecastData";
 
 const Forecast: React.FC<{ data: ForecastData }> = (props) => {
   return (

@@ -1,13 +1,13 @@
 import CurrentWeather from "./CurrentWeather";
 import Forecast from "./Forecast";
 import { useEffect, useState } from "react";
-import { getCurrentWeather, getForecast } from "../service/http-service";
-import { CurrentData } from "../models/CurrentData";
-import { ForecastData } from "../models/ForecastData";
+import { getCurrentWeather, getForecast } from "../../service/http-service";
+import { CurrentData } from "../../models/CurrentData";
+import { ForecastData } from "../../models/ForecastData";
 
-import Loader from "./Loader";
-import StyledMessage from "./StyledMessage";
-import FullWidthSection from "./FullWidthSection";
+import Loader from "../UI/Loader";
+import StyledMessage from "../UI/StyledMessage";
+import FullWidthSection from "../UI/FullWidthSection";
 
 const Weather: React.FC<{
   area: string;

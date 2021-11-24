@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
 type UserDataCtxObj = {
-  area: string;
+  area: string | null;
   loading: boolean;
 };
 
@@ -10,9 +11,13 @@ export const UserDataContext = React.createContext<UserDataCtxObj>({
   loading: false,
 });
 
+let initial = true;
+
 const UserDataContextProvider: React.FC = (props) => {
   const [loading, setLoading] = useState(false);
   const [userArea, setUserArea] = useState("");
+
+  const searchParams = useSearchParams()[0];
 
   const getLocation = async () => {
     const getCoordinates = () => {
@@ -40,11 +45,24 @@ const UserDataContextProvider: React.FC = (props) => {
       })
       .finally(() => {
         setLoading(false);
+        initial = false;
       });
   }, []);
 
+  // It appears  the initial check basically prevents searchParams being called
+  // when the app first loads, so now no longer getting the warning about state
+  // update on an unmounted component
+  const location =
+    initial && userArea
+      ? userArea
+      : initial
+      ? null
+      : !searchParams.get("q") && userArea
+      ? userArea
+      : searchParams.get("q");
+
   return (
-    <UserDataContext.Provider value={{ area: userArea, loading: loading }}>
+    <UserDataContext.Provider value={{ area: location, loading: loading }}>
       {props.children}
     </UserDataContext.Provider>
   );

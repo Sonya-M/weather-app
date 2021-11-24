@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
-type UserDataCtxObj = {
+type LocationDataCtxObj = {
   area: string | null;
   loading: boolean;
 };
 
-export const UserDataContext = React.createContext<UserDataCtxObj>({
+export const LocationDataContext = React.createContext<LocationDataCtxObj>({
   area: "",
   loading: false,
 });
 
 let initial = true;
 
-const UserDataContextProvider: React.FC = (props) => {
+const LocationDataContextProvider: React.FC = (props) => {
   const [loading, setLoading] = useState(false);
   const [userArea, setUserArea] = useState("");
 
@@ -62,10 +62,10 @@ const UserDataContextProvider: React.FC = (props) => {
       : searchParams.get("q");
 
   return (
-    <UserDataContext.Provider value={{ area: location, loading: loading }}>
+    <LocationDataContext.Provider value={{ area: location, loading: loading }}>
       {props.children}
-    </UserDataContext.Provider>
+    </LocationDataContext.Provider>
   );
 };
 
-export default UserDataContextProvider;
+export default LocationDataContextProvider;

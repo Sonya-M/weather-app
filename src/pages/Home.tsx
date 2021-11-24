@@ -2,13 +2,13 @@ import { useContext } from "react";
 import Loader from "../components/Loader";
 import SearchBar from "../components/Search";
 import Weather from "../components/Weather";
-import { UserDataContext } from "../store-ctx/user-data-ctx";
+import { LocationDataContext } from "../store-ctx/location-data-ctx";
 import FullWidthSection from "../components/FullWidthSection";
 
 export default function Home() {
-  const userDataCtx = useContext(UserDataContext);
+  const ctx = useContext(LocationDataContext);
 
-  if (userDataCtx.loading) {
+  if (ctx.loading) {
     return <Loader />;
   }
   return (
@@ -17,7 +17,7 @@ export default function Home() {
         <h1>How's the weather in...</h1>
         <SearchBar />
       </FullWidthSection>
-      {userDataCtx.area && <Weather area={userDataCtx.area} />}
+      {ctx.area && <Weather area={ctx.area} />}
     </>
   );
 }

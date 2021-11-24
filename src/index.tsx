@@ -3,13 +3,13 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
-import UserDataContextProvider from "./store-ctx/user-data-ctx";
+import LocationDataContextProvider from "./store-ctx/location-data-ctx";
 
 ReactDOM.render(
   <BrowserRouter>
-    <UserDataContextProvider>
+    <LocationDataContextProvider>
       <App />
-    </UserDataContextProvider>
+    </LocationDataContextProvider>
   </BrowserRouter>,
   document.getElementById("root")
 );

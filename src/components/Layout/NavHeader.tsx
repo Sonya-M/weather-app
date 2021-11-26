@@ -1,5 +1,7 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import RotatingIcon from "../UI/RotatingWrapper";
+import SUN from "../../assets/SUN.png";
 
 const StyledHeader = styled.header`
   margin: 0;
@@ -46,7 +48,13 @@ export default function NavHeader() {
       <StyledNav>
         <ul>
           <li>
-            <NavLink to="/home">Home</NavLink>
+            <NavLink to="/home">
+              H
+              <RotatingIcon>
+                <img width="18px" height="18px" src={SUN} alt="logo-sun" />
+              </RotatingIcon>
+              me
+            </NavLink>
           </li>
           <li>
             <NavLink to="/about">About</NavLink>

@@ -6,7 +6,7 @@ import { CurrentData } from "../../models/CurrentData";
 import { ForecastData } from "../../models/ForecastData";
 
 import Loader from "../UI/Loader";
-import StyledMessage from "../UI/StyledMessage";
+import ErrorMessage from "../UI/ErrorMessage";
 import FullWidthSection from "../UI/FullWidthSection";
 
 const Weather: React.FC<{
@@ -59,7 +59,7 @@ const Weather: React.FC<{
         : "Error: " + error.message;
     return (
       <FullWidthSection>
-        <StyledMessage color="darkred">{msg}</StyledMessage>
+        <ErrorMessage>{msg}</ErrorMessage>
       </FullWidthSection>
     );
   }
@@ -73,15 +73,15 @@ const Weather: React.FC<{
       {forecastData ? (
         <Forecast data={forecastData} />
       ) : (
-        <StyledMessage color="darkred">Failed to load forecast</StyledMessage>
+        <ErrorMessage>Failed to load forecast</ErrorMessage>
       )}
     </>
   ) : (
     <FullWidthSection>
-      <StyledMessage color="darkred">
+      <ErrorMessage>
         <p>Sorry, an unexpected error has occurred.</p>
         <p>Try a new search.</p>
-      </StyledMessage>
+      </ErrorMessage>
     </FullWidthSection>
   );
 };

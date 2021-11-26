@@ -1,4 +1,11 @@
 import { getHrsAndMinsFromDate, shortFormattedDate } from "./formatters";
+import { GeolocationData } from "../models/GeolocationData";
+
+////////////////////////////////////////
+// for GeolocationData (used for userLocation in the store)
+export function getLocationName(data: GeolocationData) {
+  return data.name;
+}
 
 /////////////////////////////////////////
 // for current weather by city responses:

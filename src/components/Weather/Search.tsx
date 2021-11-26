@@ -32,11 +32,12 @@ const Search: React.FC = (props) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const query = searchRef.current!.value;
+    let query = searchRef.current!.value;
     if (query.trim().length === 0) {
       return;
     }
-    setSearchParams({ q: formatQueryForRouter(query) });
+    query = formatQueryForRouter(query);
+    setSearchParams({ q: query });
     searchRef.current!.value = "";
   };
   return (

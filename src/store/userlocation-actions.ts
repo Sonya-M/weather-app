@@ -18,7 +18,7 @@ export const getUserLocationData = () => {
       if (!response.ok) throw new Error("Failed to get location");
       const data = await response.json();
       if (!data?.length) throw new Error("Unexpected data");
-      console.log("geolocation response: ", data);
+      // console.log("geolocation response: ", data);
       // return data[0].name;
       return data[0]; // return the first item, prob. the best match
     };

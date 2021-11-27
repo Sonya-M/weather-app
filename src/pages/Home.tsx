@@ -1,13 +1,12 @@
+import { useEffect } from "react";
+
+import { useSearchParams } from "react-router-dom";
+import { useAppSelector, useAppDispatch } from "../store/hooks";
+import { getCurrentWeather, getForecast } from "../store/weather-actions";
+
 import SearchBar from "../components/Weather/Search";
 import Weather from "../components/Weather/Weather";
 import FullWidthSection from "../components/UI/FullWidthSection";
-
-import { useSearchParams } from "react-router-dom";
-import { useAppSelector } from "../store/hooks";
-import { useAppDispatch } from "../store/hooks";
-import { useEffect } from "react";
-import { getCurrentWeather } from "../store/weather-actions";
-import { getForecast } from "../store/weather-actions";
 
 export default function Home() {
   const userLocation = useAppSelector((state) => state.userLocation);

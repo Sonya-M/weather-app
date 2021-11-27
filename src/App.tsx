@@ -6,14 +6,12 @@ import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 
 // redux store
-import { useAppDispatch, useAppSelector } from "./store/hooks";
+import { useAppDispatch } from "./store/hooks";
 import { useEffect } from "react";
 import { getUserLocationData } from "./store/userlocation-actions";
 
 function App() {
-  const userLocation = useAppSelector((store) => store.userLocation);
   const dispatch = useAppDispatch();
-  console.log("userLocation:", userLocation);
 
   useEffect(() => {
     dispatch(getUserLocationData());

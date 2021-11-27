@@ -1,6 +1,8 @@
 import { WiSunrise, WiSunset, WiHumidity, WiStrongWind } from "react-icons/wi";
 import { FaTemperatureLow, FaTemperatureHigh } from "react-icons/fa";
 import styled from "styled-components";
+import { useAppSelector } from "../../store/hooks";
+import * as getters from "../../utils/getters";
 
 const StyledTable = styled.table`
   margin: auto;
@@ -22,15 +24,11 @@ const StyledTable = styled.table`
   }
 `;
 
-const CurrWeatherTable: React.FC<{
-  minTemp: string;
-  maxTemp: string;
-  feelsLike: string;
-  sunrise: string;
-  sunset: string;
-  humidity: string;
-  wind: string;
-}> = (props) => {
+const CurrWeatherTable: React.FC = () => {
+  const currentWeather = useAppSelector(
+    (state) => state.weather.currentWeather
+  );
+  if (!currentWeather) return null;
   return (
     <StyledTable>
       <tbody>
@@ -38,37 +36,37 @@ const CurrWeatherTable: React.FC<{
           <th>
             <FaTemperatureLow className="fa" />
           </th>
-          <td>{props.minTemp}</td>
+          <td>{`${getters.getMinTemp(currentWeather)}°C`}</td>
         </tr>
         <tr>
           <th>
             <FaTemperatureHigh className="fa" />
           </th>
-          <td>{props.maxTemp}</td>
+          <td>{`${getters.getMaxTemp(currentWeather)}°C`}</td>
         </tr>
         <tr>
           <th>
             <WiStrongWind />
           </th>
-          <td>{props.wind}</td>
+          <td>{`${getters.getWindSpeed(currentWeather)} m/s`}</td>
         </tr>
         <tr>
           <th>
             <WiHumidity />
           </th>
-          <td>{props.humidity}</td>
-        </tr>
-        <tr>
-          <th>
-            <WiSunset />
-          </th>
-          <td>{props.sunset}</td>
+          <td>{`${getters.getHumidity(currentWeather)}%`}</td>
         </tr>
         <tr>
           <th>
             <WiSunrise />
           </th>
-          <td>{props.sunrise}</td>
+          <td>{getters.getSunrise(currentWeather)}</td>
+        </tr>
+        <tr>
+          <th>
+            <WiSunset />
+          </th>
+          <td>{getters.getSunset(currentWeather)}</td>
         </tr>
       </tbody>
     </StyledTable>

@@ -1,7 +1,7 @@
 import * as getters from "../../utils/getters";
-import { ForecastData } from "../../models/ForecastData";
 
 import styled from "styled-components";
+import { useAppSelector } from "../../store/hooks";
 
 const ForecastUl = styled.ul`
   margin: auto;
@@ -22,8 +22,11 @@ const ForecastUl = styled.ul`
   }
 `;
 
-const DailyForecast: React.FC<{ data: ForecastData }> = (props) => {
-  const forecast = props.data;
+const DailyForecast: React.FC = () => {
+  const forecast = useAppSelector((state) => state.weather.forecast);
+
+  if (!forecast) return null;
+
   const dailyF = getters.getDailyForecast(forecast);
   const icons = getters.getDailyWeatherIcons(forecast);
   return (
@@ -32,7 +35,11 @@ const DailyForecast: React.FC<{ data: ForecastData }> = (props) => {
       <ForecastUl>
         {dailyF.map((f, i) => (
           <li key={f.day}>
-            <img src={icons[i].icon} alt={icons[i].description} />
+            <img
+              src={icons[i].icon}
+              alt={icons[i].description}
+              title={icons[i].description}
+            />
             <span>{f.day}</span>
           </li>
         ))}

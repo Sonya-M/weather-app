@@ -47,7 +47,7 @@ const ChartBarLabel = styled.div`
 `;
 
 const ChartBar: React.FC<{
-  forecast: {
+  tempForecast: {
     min: number;
     max: number;
     day: string;
@@ -66,9 +66,9 @@ const ChartBar: React.FC<{
       (0.9 * props.chartHeight) / (props.range + 1)
     );
     maxBarFillHeight =
-      (props.forecast.max - props.weeklyMin + 1) * oneDegreeHeight + "px";
+      (props.tempForecast.max - props.weeklyMin + 1) * oneDegreeHeight + "px";
     minBarFillHeight =
-      (props.forecast.min - props.weeklyMin + 1) * oneDegreeHeight + "px";
+      (props.tempForecast.min - props.weeklyMin + 1) * oneDegreeHeight + "px";
     // console.log(`1 deg height: ${oneDegreeHeight};
     // maxBarFillHeight: ${maxBarFillHeight};
     // minBarFillHeight: ${minBarFillHeight}`);
@@ -77,7 +77,7 @@ const ChartBar: React.FC<{
     <TempBar>
       <ChartBarInner>
         <ChartBarLabel>{`${KelvinToCelsius(
-          props.forecast.max
+          props.tempForecast.max
         )}°`}</ChartBarLabel>
 
         <ChartBarFillMax style={{ height: maxBarFillHeight }}>
@@ -85,10 +85,10 @@ const ChartBar: React.FC<{
         </ChartBarFillMax>
 
         <ChartBarLabel>{`${KelvinToCelsius(
-          props.forecast.min
+          props.tempForecast.min
         )}°`}</ChartBarLabel>
       </ChartBarInner>
-      <ChartBarLabel>{props.forecast.day}</ChartBarLabel>
+      <ChartBarLabel>{props.tempForecast.day}</ChartBarLabel>
     </TempBar>
   );
 };

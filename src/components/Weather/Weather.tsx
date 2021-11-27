@@ -32,9 +32,9 @@ const Weather: React.FC<{ location: string }> = (props) => {
 
   return currentWeather ? (
     <>
-      <CurrentWeather data={currentWeather} />
+      <CurrentWeather />
       {forecast ? (
-        <Forecast data={forecast} />
+        <Forecast />
       ) : (
         <ErrorMessage>Failed to load forecast</ErrorMessage>
       )}

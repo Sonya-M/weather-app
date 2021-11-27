@@ -44,7 +44,7 @@ const Chart: React.FC<{ data: ForecastData }> = (props) => {
       <TempChart>
         {forecast.map((f, i) => (
           <ChartBar
-            forecast={f}
+            tempForecast={f}
             key={"" + i}
             weeklyMax={weeklyMax}
             weeklyMin={weeklyMin}
@@ -58,3 +58,6 @@ const Chart: React.FC<{ data: ForecastData }> = (props) => {
 };
 
 export default Chart;
+
+// TODO: make the chart more general (reusable) - that's why keep props, just
+// make the more general

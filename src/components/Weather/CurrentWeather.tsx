@@ -1,9 +1,9 @@
 import * as getters from "../../utils/getters";
-import { CurrentData } from "../../models/CurrentData";
 import CurrWeatherTable from "./CurrWeatherTable";
 import StyledSection from ".././UI/StyledSection";
 
 import styled from "styled-components";
+import { useAppSelector } from "../../store/hooks";
 
 const WeatherSummaryDiv = styled.div`
   display: flex;
@@ -15,36 +15,36 @@ const WeatherSummaryDiv = styled.div`
   }
 `;
 
-const CurrentWeather: React.FC<{ data: CurrentData }> = (props) => {
-  const { data } = props;
+const CurrentWeather: React.FC = () => {
+  const currentWeather = useAppSelector(
+    (state) => state.weather.currentWeather
+  );
+  if (!currentWeather) return null;
   return (
     <StyledSection>
       <h3>
-        Current weather in {getters.getAreaName(data)},{" "}
-        {getters.getCountry(data)}
+        Current weather in {getters.getAreaName(currentWeather)},{" "}
+        {getters.getCountry(currentWeather)}
       </h3>
       <WeatherSummaryDiv>
         <img
-          src={getters.getIcon2x(data)}
-          alt={getters.getMainDesc(data)}
+          src={getters.getIcon2x(currentWeather)}
+          alt={getters.getMainDesc(currentWeather)}
+          title={getters.getMainDesc(currentWeather)}
           width="100"
           height="100"
         />
         <p>
-          <span className="temp">{getters.getCurrentTemp(data)}°C </span>
+          <span className="temp">
+            {getters.getCurrentTemp(currentWeather)}°C{" "}
+          </span>
           <br />
-          <span>{`Feels like ${getters.getFeelsLikeTemp(data)}°C`}</span>
+          <span>{`Feels like ${getters.getFeelsLikeTemp(
+            currentWeather
+          )}°C`}</span>
         </p>
       </WeatherSummaryDiv>
-      <CurrWeatherTable
-        sunrise={getters.getSunrise(data)}
-        sunset={getters.getSunset(data)}
-        humidity={`${getters.getHumidity(data)}%`}
-        wind={`${getters.getWindSpeed(data)} m/s`}
-        minTemp={`${getters.getMinTemp(data)}°C`}
-        maxTemp={`${getters.getMaxTemp(data)}°C`}
-        feelsLike={`${getters.getFeelsLikeTemp(data)}°C`}
-      />
+      <CurrWeatherTable />
     </StyledSection>
   );
 };

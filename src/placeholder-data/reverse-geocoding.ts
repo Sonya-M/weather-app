@@ -161,6 +161,31 @@ Example of API response:
 
 */
 
+export const DUMMY_GEOCODING_RESP_2 = [
+  {
+    name: "Subotica",
+    local_names: {
+      ascii: "Subotica",
+      bg: "Суботица",
+      da: "Subotica",
+      de: "Subotiza",
+      en: "Subotica",
+      feature_name: "Subotica",
+      fr: "Subotica",
+      hr: "Subotica",
+      hu: "Szabadka",
+      lt: "Subotica",
+      nl: "Subotica",
+      pl: "Subotica",
+      ru: "Суботица",
+      sr: "Subotica",
+    },
+    lat: 46.1,
+    lon: 19.6667,
+    country: "RS",
+  },
+];
+
 export const DUMMY_GEOCODING_RESPONSE = [
   {
     name: "City of London",

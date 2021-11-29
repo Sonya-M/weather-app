@@ -89,7 +89,7 @@ export type ForecastData = {
     pop: number;
     uvi: number;
   }[];
-  alerts: {
+  alerts?: {
     sender_name: string;
     event: string;
     start: number;

@@ -26,8 +26,6 @@ type Clouds = {
   all: number;
 };
 type Sys = {
-  type: number;
-  id: number;
   country: string;
   sunrise: number;
   sunset: number;

@@ -8,6 +8,13 @@ import SearchBar from "../components/Weather/Search";
 import Weather from "../components/Weather/Weather";
 import FullWidthSection from "../components/UI/FullWidthSection";
 
+// TODO: delete afterwards
+import { weatherActions } from "../store/weather-slice";
+import {
+  DUMMY_CURRENT_WEATHER,
+  ONE_CALL,
+} from "../placeholder-data/current-and-one-call";
+
 export default function Home() {
   const userLocation = useAppSelector((state) => state.userLocation);
   const weather = useAppSelector((state) => state.weather);
@@ -17,20 +24,36 @@ export default function Home() {
   // user location, if available
   let location = searchParams.get("q") || userLocation.location?.name;
 
+  // TODO: delete afterwards
+  // temporarily use dummy data while working on the details charts
   useEffect(() => {
-    if (!location) return;
-    dispatch(getCurrentWeather(location));
-  }, [searchParams, location, dispatch]);
-
-  useEffect(() => {
-    if (!weather.area?.coords) return;
+    dispatch(weatherActions.setCurrentWeather(DUMMY_CURRENT_WEATHER));
     dispatch(
-      getForecast({
-        lat: weather.area.coords.lat,
-        lon: weather.area.coords.lon,
+      weatherActions.setArea({
+        coords: {
+          lon: DUMMY_CURRENT_WEATHER.coord.lon,
+          lat: DUMMY_CURRENT_WEATHER.coord.lat,
+        },
+        name: DUMMY_CURRENT_WEATHER.name,
       })
     );
-  }, [weather.area?.coords, dispatch]);
+    dispatch(weatherActions.setForecast(ONE_CALL));
+  }, [dispatch]);
+
+  // useEffect(() => {
+  //   if (!location) return;
+  //   dispatch(getCurrentWeather(location));
+  // }, [searchParams, location, dispatch]);
+
+  // useEffect(() => {
+  //   if (!weather.area?.coords) return;
+  //   dispatch(
+  //     getForecast({
+  //       lat: weather.area.coords.lat,
+  //       lon: weather.area.coords.lon,
+  //     })
+  //   );
+  // }, [weather.area?.coords, dispatch]);
 
   return (
     <>

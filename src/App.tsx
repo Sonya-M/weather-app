@@ -10,11 +10,22 @@ import { useAppDispatch } from "./store/hooks";
 import { useEffect } from "react";
 import { getUserLocationData } from "./store/userlocation-actions";
 
+// TODO: delete afterwards:
+import { userLocationActions } from "./store/userlocation-slice";
+import { DUMMY_GEOCODING_RESP_2 } from "./placeholder-data/reverse-geocoding";
+
 function App() {
   const dispatch = useAppDispatch();
 
+  // TODO: uncomment afterwards
+  // useEffect(() => {
+  //   dispatch(getUserLocationData());
+  // }, [dispatch]);
+
+  // TODO: delete afterwards
   useEffect(() => {
-    dispatch(getUserLocationData());
+    dispatch(userLocationActions.setUserLocation(DUMMY_GEOCODING_RESP_2[0]));
+    dispatch(userLocationActions.setUserBlocked(false));
   }, [dispatch]);
 
   return (

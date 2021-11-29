@@ -76,16 +76,16 @@ const TemperatureChartBar: React.FC<{
   return (
     <TempBar>
       <ChartBarInner>
-        <ChartBarLabel>{`${KelvinToCelsius(
-          props.tempForecast.max
+        <ChartBarLabel>{`${KelvinToCelsius(props.tempForecast.max).toFixed(
+          1
         )}°`}</ChartBarLabel>
 
         <ChartBarFillMax style={{ height: maxBarFillHeight }}>
           <ChartBarFillMin style={{ height: minBarFillHeight }} />
         </ChartBarFillMax>
 
-        <ChartBarLabel>{`${KelvinToCelsius(
-          props.tempForecast.min
+        <ChartBarLabel>{`${KelvinToCelsius(props.tempForecast.min).toFixed(
+          1
         )}°`}</ChartBarLabel>
       </ChartBarInner>
       <ChartBarLabel>{props.tempForecast.day}</ChartBarLabel>

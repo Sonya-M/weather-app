@@ -38,6 +38,9 @@ export default function Home() {
       })
     );
     dispatch(weatherActions.setForecast(ONE_CALL));
+
+    console.log(ONE_CALL.minutely.length); // 61
+    console.log(ONE_CALL.hourly.length); // 48
   }, [dispatch]);
 
   // useEffect(() => {

@@ -1,95 +1,76 @@
-import { KelvinToCelsius } from "../../../utils/converters";
 import styled from "styled-components";
 
-const TempBar = styled.div`
+const StyledChartBar = styled.div`
   height: 100%;
-  width: 2.3rem;
-  max-width: 10vw;
-
-  & img {
-    max-width: 100%;
-  }
-
-  @media screen and(min-width: 400px) {
-    width: 3rem;
-  }
 `;
 
 const ChartBarInner = styled.div`
   height: 100%;
   width: 100%;
   border-radius: 0.3rem;
-  /* overflow: hidden; */
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
 `;
 
-const ChartBarFillMax = styled.div`
-  background-color: #eff301;
+const ChartBarFill = styled.div`
   width: 100%;
-  position: relative;
-  bottom: 0;
-`;
-
-const ChartBarFillMin = styled.div`
-  background-color: #008cff;
-  width: 100%;
-  position: absolute;
-  bottom: 0;
+  /* display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 1rem;
+  & div {
+    transform: rotate(270deg);
+    font-size: 0.6rem;
+  } */
 `;
 
 const ChartBarLabel = styled.div`
-  font-weight: bold;
-  font-size: 0.7rem;
+  /* font-weight: bold; */
+  font-size: 0.5rem;
   text-align: center;
-  z-index: 2;
 `;
 
 const ChartBar: React.FC<{
-  tempForecast: {
-    min: number;
-    max: number;
-    day: string;
-  };
+  value: number;
+  overallMin: number;
   range: number;
-  weeklyMin: number;
-  weeklyMax: number;
+  color: string;
   chartHeight: number;
+  slim?: boolean;
+  label?: string;
+  unitConverter?: (val: number) => number;
 }> = (props) => {
-  let maxBarFillHeight = "100%";
-  let minBarFillHeight = "100%";
+  //
+  let barFillHeight = "1%";
 
   if (props.range > 0) {
-    // leave some space for the labels, like 10%:
-    const oneDegreeHeight = Math.round(
+    // 0.9: leave some space for the labels;
+    // range+1 so that the height of the minimum value will be equal to heightUnit;
+    // can round here because dealing w/ pixels
+    const heightUnit = Math.round(
       (0.9 * props.chartHeight) / (props.range + 1)
     );
-    maxBarFillHeight =
-      (props.tempForecast.max - props.weeklyMin + 1) * oneDegreeHeight + "px";
-    minBarFillHeight =
-      (props.tempForecast.min - props.weeklyMin + 1) * oneDegreeHeight + "px";
-    // console.log(`1 deg height: ${oneDegreeHeight};
-    // maxBarFillHeight: ${maxBarFillHeight};
-    // minBarFillHeight: ${minBarFillHeight}`);
+    barFillHeight = (props.value - props.overallMin + 1) * heightUnit + "px";
   }
+
+  const value = props?.unitConverter
+    ? props.unitConverter(props.value)
+    : props.value;
+
   return (
-    <TempBar>
+    <StyledChartBar style={{ width: props?.slim ? "1rem" : "2.3rem" }}>
       <ChartBarInner>
-        <ChartBarLabel>{`${KelvinToCelsius(
-          props.tempForecast.max
-        )}°`}</ChartBarLabel>
-
-        <ChartBarFillMax style={{ height: maxBarFillHeight }}>
-          <ChartBarFillMin style={{ height: minBarFillHeight }} />
-        </ChartBarFillMax>
-
-        <ChartBarLabel>{`${KelvinToCelsius(
-          props.tempForecast.min
-        )}°`}</ChartBarLabel>
+        <ChartBarLabel>{value.toFixed(2)}</ChartBarLabel>
+        <ChartBarFill
+          title={value.toFixed(2)}
+          style={{ height: barFillHeight, backgroundColor: props.color }}
+        >
+          {/* <div>{value.toFixed(2)}</div> */}
+        </ChartBarFill>
       </ChartBarInner>
-      <ChartBarLabel>{props.tempForecast.day}</ChartBarLabel>
-    </TempBar>
+      {!props?.slim && <ChartBarLabel>{props.label}</ChartBarLabel>}
+    </StyledChartBar>
   );
 };
 

@@ -40,7 +40,7 @@ const StyledChart = styled.div<StyledChartProps>`
   height: ${CHART_HEIGHT + SHOW_LEGEND_TOGGLE_HEIGHT + PADDING * 2}px;
   min-height: fit-content;
 
-  gap: ${(props) => (props?.slim ? ".1rem" : ".2rem")};
+  gap: ${(props) => (props.slim ? ".1rem" : ".2rem")};
 `;
 
 const LegendContainer = styled.div`

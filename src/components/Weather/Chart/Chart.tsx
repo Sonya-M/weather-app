@@ -8,7 +8,7 @@ const PADDING = 16;
 
 const TempChart = styled.div`
   margin: auto;
-  padding: ${`${PADDING}px`};
+  padding: ${PADDING}px;
   border-radius: 8px;
   background-color: #f8dfff;
   box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.2);
@@ -21,7 +21,7 @@ const TempChart = styled.div`
   justify-content: flex-start;
   gap: 0.2rem;
 
-  height: ${`${CHART_HEIGHT + PADDING * 2}px`}; /* fixed width for easy calc */
+  height: ${CHART_HEIGHT + PADDING * 2}px; /* fixed width for easy calc */
 
   min-height: fit-content;
 

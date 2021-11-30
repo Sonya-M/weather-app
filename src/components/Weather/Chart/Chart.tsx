@@ -18,7 +18,12 @@ const CHART_HEIGHT = 300; //300px
 const PADDING = 16;
 const SHOW_LEGEND_TOGGLE_HEIGHT = 20;
 
-const StyledChart = styled.div`
+// styled components custom props with typescript!!!!!!!!!!
+// https://styled-components.com/docs/api#using-custom-props
+interface StyledChartProps {
+  readonly slim?: boolean;
+}
+const StyledChart = styled.div<StyledChartProps>`
   position: relative;
   margin: auto;
   padding: ${PADDING}px;
@@ -34,6 +39,8 @@ const StyledChart = styled.div`
   justify-content: flex-start;
   height: ${CHART_HEIGHT + SHOW_LEGEND_TOGGLE_HEIGHT + PADDING * 2}px;
   min-height: fit-content;
+
+  gap: ${(props) => (props?.slim ? ".1rem" : ".2rem")};
 `;
 
 const LegendContainer = styled.div`
@@ -78,7 +85,7 @@ const Chart: React.FC<{
   const range = overallMax - overallMin;
 
   return (
-    <StyledChart style={{ gap: props?.slim ? "0.1rem" : "0.2rem" }}>
+    <StyledChart slim={props.slim}>
       {props.legend && showLegend ? (
         <ToggleBtnDiv onClick={handleToggleShowLegend}>
           <BsToggleOn size="1.5rem" /> <span>&nbsp;&nbsp;Hide legend</span>

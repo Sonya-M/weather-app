@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
-const StyledChartBar = styled.div`
+interface StyledChartBarProps {
+  slim?: boolean;
+}
+const StyledChartBar = styled.div<StyledChartBarProps>`
   height: 100%;
+  width: ${(props) => (props?.slim ? "1rem" : "2.3rem")};
 `;
 
 const ChartBarInner = styled.div`
@@ -25,9 +29,10 @@ const ChartBarFill = styled.div`
   } */
 `;
 
-const ChartBarLabel = styled.div`
+const ChartBarLabel = styled.div<StyledChartBarProps>`
   /* font-weight: bold; */
-  font-size: 0.5rem;
+  font-weight: ${(props) => (props.slim ? "normal" : "bold")};
+  font-size: ${(props) => (props.slim ? "0.5rem" : "0.7rem")};
   text-align: center;
 `;
 
@@ -59,17 +64,17 @@ const ChartBar: React.FC<{
     : props.value;
 
   return (
-    <StyledChartBar style={{ width: props?.slim ? "1rem" : "2.3rem" }}>
+    <StyledChartBar slim={props.slim}>
       <ChartBarInner>
-        <ChartBarLabel>{value.toFixed(2)}</ChartBarLabel>
+        <ChartBarLabel slim={props.slim}>{value.toFixed(2)}</ChartBarLabel>
         <ChartBarFill
-          title={value.toFixed(2)}
+          title={props.label}
           style={{ height: barFillHeight, backgroundColor: props.color }}
         >
           {/* <div>{value.toFixed(2)}</div> */}
         </ChartBarFill>
       </ChartBarInner>
-      {!props?.slim && <ChartBarLabel>{props.label}</ChartBarLabel>}
+      {!props.slim && <ChartBarLabel>{props.label}</ChartBarLabel>}
     </StyledChartBar>
   );
 };
